@@ -1,6 +1,8 @@
-from unicodedata import category
 from django.contrib import admin
-from .models import Category, Options, Question, Quiz
+from Quiz.models.Category_model import Category
+from Quiz.models.Quiz_model import Quiz
+from Quiz.models.Question_model import Question
+from Quiz.models.Options_model import Options
 
 # Register your models here.
 

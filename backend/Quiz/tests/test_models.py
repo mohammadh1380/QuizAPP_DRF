@@ -1,5 +1,7 @@
-from unicodedata import name
-from Quiz.models import Category, Quiz, Question, Options
+from Quiz.models.Category_model import Category
+from Quiz.models.Quiz_model import Quiz
+from Quiz.models.Question_model import Question
+from Quiz.models.Options_model import Options
 from django.test import TestCase
 
 
