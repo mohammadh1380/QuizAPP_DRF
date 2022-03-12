@@ -21,6 +21,7 @@ class ModelsTest(TestCase):
         self.assertEqual(game.slug, "game")
         self.assertEqual(game.position, 2)
         self.assertFalse(game.status)
+        
 
     def test_quiz(self):
         game = Category.objects.get(name="Game")

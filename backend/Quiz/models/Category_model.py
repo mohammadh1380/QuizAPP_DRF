@@ -11,5 +11,8 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def quizzes(self):
+        return self.quiz_set.active()
 
     objects = CategoryManager()
