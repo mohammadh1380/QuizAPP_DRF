@@ -1,17 +1,22 @@
-from rest_framework.test import APIRequestFactory
-from django.test import TestCase
-from Quiz.models.Category_model import Category
-from Quiz.views import CategoryViewSet
+from rest_framework.test import APITestCase, APIClient
+from django.test import Client
+from django.urls import reverse
+from rest_framework import status
+from ..models.Category_model import Category
+from ..serializers import CategorySerializers
 
-# class TestViews(TestCase):
+# client = APIClient()
+#
+#
+# class TestViews(APITestCase):
 #     def setUp(self):
-#         Category.objects.create(name="Game", slug="game", status=False, position=2)
+#         Category.objects.create(name="Game", slug="game", status=False, position=6)
+#
 #     def test_view_set(self):
-#         request = APIRequestFactory().get("/game")
-        
-        # cat_detail = CategoryViewSet.as_view({'get': 'retrieve'})
-        # cat = Category.objects.get(name="Game")
-        # print(request)
-        # response = cat_detail(request, slug=cat.slug)
-        # self.assertEqual(response.status_code, 200)
-
+#         cat = Category.objects.get(name='Game')
+#         serializer = CategorySerializers(cat)
+#         response = client.get('/categories/game/')
+#         print(response.data)
+#         print(response.status_code)
+#         self.assertEqual(response.data, serializer.data)
+#         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

@@ -2,6 +2,7 @@ from django.db import models
 from .validators import validate_file_extension
 from .managers import CategoryManager
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
@@ -11,7 +12,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def quizzes(self):
         return self.quiz_set.active()
 

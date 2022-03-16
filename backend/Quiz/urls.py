@@ -1,18 +1,16 @@
 from django.urls import path, include
-from .views import CategoryViewSet
-from rest_framework.routers import DefaultRouter
+from .views import CategoryViewSet, QuizViewSet
 from rest_framework_nested import routers
 
+router = routers.SimpleRouter(trailing_slash=False)
+router.register(r'categories', CategoryViewSet, basename='category')
 
-router = DefaultRouter()
-router.register(r'', CategoryViewSet, basename='category')
-urlpatterns = router.urls
+categories_router = routers.NestedSimpleRouter(
+    router, r'categories', lookup='category')
+categories_router.register(r'quiz', QuizViewSet, basename='quiz')
 
 
-
-# router = routers.SimpleRouter(trailing_slash=False)
-# router.register(r'categories', CategoryViewSet)
-
-# categories_router = routers.NestedSimpleRouter(
-#     router, r'categories', lookup='category', trailing_slash=False)
-# categories_router.register(r'items', ItemViewSet)
+urlpatterns = [
+    path(r'', include(router.urls)),
+    path(r'', include(categories_router.urls))
+]
