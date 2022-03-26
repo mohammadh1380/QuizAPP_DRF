@@ -1,7 +1,6 @@
 from django.db import models
-from Quiz.models.Question_model import Question
+from .Question_model import Question
 
-    
 
 class Options(models.Model):
     content = models.CharField(max_length=200)
@@ -15,9 +14,9 @@ class Options(models.Model):
                 if i.correct:
                     self.correct = False
                     super(Options, self).save(*args, **kwargs)
-                    
+
         super(Options, self).save(*args, **kwargs)
-        
+
     class Meta:
         verbose_name_plural = "Options"
 

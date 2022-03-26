@@ -2,13 +2,16 @@ from django.db import models
 
 
 class CategoryManager(models.Manager):
-    def active(self):
-        return self.filter(status=True)
+    def get_queryset(self):
+        return super().get_queryset().filter(status=True)
 
 
 class QuizManager(models.Manager):
-    def active(self):
-        return self.filter(status=True)
+    def get_queryset(self):
+        return super().get_queryset().filter(status=True)
 
-    def categorySlug(self, category):
-        return self.filter(category__slug=category)
+    def category_slug(self, category):
+        return self.get_queryset().filter(category__slug=category)
+
+    def quiz_slug(self, slug):
+        return self.get_queryset().filter(slug=slug, status=True, category__status=True)

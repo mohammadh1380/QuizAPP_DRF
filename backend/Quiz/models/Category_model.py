@@ -14,6 +14,7 @@ class Category(models.Model):
         return self.name
 
     def quizzes(self):
-        return self.quiz_set.active()
+        return self.quiz_set.filter(status=True)
 
-    objects = CategoryManager()
+    objects = models.Manager()
+    active_objects = CategoryManager()

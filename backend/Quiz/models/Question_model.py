@@ -1,5 +1,5 @@
 from django.db import models
-from Quiz.models.Quiz_model import Quiz
+from .Quiz_model import Quiz
 from .validators import validate_file_extension
 
 
@@ -11,5 +11,5 @@ class Question(models.Model):
     def __str__(self):
         return self.content
     
-    def get_answers(self):
+    def options(self):
         return self.options_set.all()

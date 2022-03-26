@@ -1,31 +1,33 @@
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework import status
 from .models.Category_model import Category
 from .models.Quiz_model import Quiz
-from .models.Question_model import Question
-from .models.Options_model import Options
 from .permissions import IsSuperuserOrReadOnly
-from .serializers import CategorySerializers, QuizSerializers
+from .serializers import CategorySerializers, QuizListSerializers, QuizDetailSerializers
+from rest_framework import viewsets, mixins
 
 
 # Create your views here.
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.active()
+    queryset = Category.active_objects
     serializer_class = CategorySerializers
     permission_classes = [IsSuperuserOrReadOnly, ]
     lookup_field = 'slug'
 
 
-class QuizViewSet(viewsets.ModelViewSet):
+class QuizView(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     def get_queryset(self, **kwargs):
-        print(self.kwargs.get('category_slug'))
-        return Quiz.objects.categorySlug(self.kwargs.get('category_slug'))
+        return Quiz.active_objects.category_slug(self.kwargs.get('category_slug'))
 
-    def retrieve(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    serializer_class = QuizListSerializers
+    permission_classes = [IsSuperuserOrReadOnly, ]
 
-    serializer_class = QuizSerializers
+
+class QuizDetailView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin,
+                     viewsets.GenericViewSet):
+
+    def get_queryset(self, **kwargs):
+        return Quiz.active_objects.quiz_slug(self.kwargs.get('slug'))
+
+    serializer_class = QuizDetailSerializers
     permission_classes = [IsSuperuserOrReadOnly, ]
     lookup_field = 'slug'

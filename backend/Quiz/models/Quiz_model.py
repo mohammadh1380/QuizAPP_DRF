@@ -1,7 +1,8 @@
 from django.db import models
-from Quiz.models.Category_model import Category
+from .Category_model import Category
 from .validators import validate_file_extension
 from .managers import QuizManager
+
 
 class Quiz(models.Model):
     name = models.CharField(max_length=100)
@@ -16,7 +17,8 @@ class Quiz(models.Model):
     def __str__(self):
         return self.name
 
-    def get_questions(self):
+    def questions(self):
         return self.question_set.all()
 
-    objects = QuizManager()
+    objects = models.Manager()
+    active_objects = QuizManager()
