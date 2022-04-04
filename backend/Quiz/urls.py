@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CategoryViewSet, QuizView, QuizDetailView
+from .views import CategoryViewSet, QuizView, QuizDetailView, HomePage
 from rest_framework_nested import routers
 
 router = routers.SimpleRouter(trailing_slash=False)
@@ -10,6 +10,7 @@ categories_router = routers.NestedSimpleRouter(
 categories_router.register(r'quizzes', QuizView, basename='quizzes')
 
 router.register(r'quiz', QuizDetailView, basename='quiz')
+router.register(r'', HomePage, basename='home')
 
 urlpatterns = [
     path(r'', include(router.urls)),

@@ -7,6 +7,11 @@ from rest_framework import viewsets, mixins
 
 # Create your views here.
 
+class HomePage(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Quiz.active_objects.order_by('?')
+    serializer_class = QuizListSerializers
+
+
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.active_objects
     serializer_class = CategorySerializers
