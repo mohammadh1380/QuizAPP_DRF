@@ -1,6 +1,7 @@
 from .models.Category_model import Category
 from .models.Quiz_model import Quiz
 from .permissions import IsSuperuserOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from .serializers import CategorySerializers, QuizListSerializers, QuizDetailSerializers
 from rest_framework import viewsets, mixins
 
@@ -34,5 +35,5 @@ class QuizDetailView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.
         return Quiz.active_objects.quiz_slug(self.kwargs.get('slug'))
 
     serializer_class = QuizDetailSerializers
-    permission_classes = [IsSuperuserOrReadOnly, ]
+    permission_classes = [IsAuthenticated, ]
     lookup_field = 'slug'
